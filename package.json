@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/chrislopresto/email-to-slack/issues"
   },
-  "homepage": "https://github.com/chrislopresto/email-to-slack#readme"
+  "homepage": "https://github.com/chrislopresto/email-to-slack#readme",
+  "dependencies": {
+    "dotenv": "^1.2.0"
+  }
 }

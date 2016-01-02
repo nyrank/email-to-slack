@@ -1,5 +1,7 @@
 /* jshint node:true */
 /* global require */
+var dotenv = require('dotenv');
+dotenv.load();
 var url = require('url');
 var https = require('https');
 var AWS = require('aws-sdk');
@@ -7,7 +9,7 @@ var s3 = new AWS.S3();
 
 var slackWebhookProtocol = 'https:';
 var slackWebhookPath;
-var slackWebhookPathKmsEncrypted = 'CiDfe7hu0Jq2ZqXaT7aenoRus8BwDlZQ+AL/Q09tR9ez4BLSAQEBAgB433u4btCatmal2k+2np6EbrPAcA5WUPgC/0NPbUfXs+AAAACpMIGmBgkqhkiG9w0BBwaggZgwgZUCAQAwgY8GCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMIf6eThC9EHLTkVfqAgEQgGIKfe8YYSkBUIep5j+mRPiG8U0764cxwGB3nktDpAihHPcV/qrrpsShQ2QYeA8uwYTeYF0jNrzh6EC4RceQxQc//ozq3glJhqeLKMhhK3h6eDE/+Sf4qhXVBC++XI+oKU7gXA==';
+var slackWebhookPathKmsEncrypted = process.env.EMAIL_TO_SLACK_WEBHOOK_PATH_ENCRYPTED;
 
 var encryptedBuf = new Buffer(slackWebhookPathKmsEncrypted, 'base64');
 var cipherText = { CiphertextBlob: encryptedBuf };
@@ -39,7 +41,7 @@ var postSlackMessage = function(context, message) {
   req.end();
 };
 
-var bucketName = 'email-to-slack';
+var bucketName = process.env.EMAIL_TO_SLACK_S3_BUCKET_NAME;
 
 exports.handler = function(event, context) {
   console.log('context: ', context);
