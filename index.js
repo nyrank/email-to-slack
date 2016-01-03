@@ -1,5 +1,3 @@
-/* jshint node:true */
-/* global require */
 var dotenv = require('dotenv');
 dotenv.load();
 var url = require('url');

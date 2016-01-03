@@ -6,6 +6,9 @@ An AWS Lambda function for processing SES emails and posting the results to Slac
 
 ... to do ...
 
+- `npm install -g grunt-cli`
+- `npm install`
+
 ### Configuring Local Environment
 
 Create a .env file at the repository root with the following contents:
@@ -18,6 +21,12 @@ This file is ignored by git and is used to hydrate your Lambda function instance
 ## Encrypting Slack Incoming Webhook URL with KMS
 
 ... to do ...
+
+## Developing
+
+... to do ...
+
+- `grunt watch`
 
 ## Deploying
 

@@ -18,5 +18,12 @@
   "homepage": "https://github.com/chrislopresto/email-to-slack#readme",
   "dependencies": {
     "dotenv": "^1.2.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-aws-lambda": "^0.11.0",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-watch": "^0.6.1",
+    "jshint-stylish": "^2.1.0"
   }
 }
