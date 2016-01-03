@@ -1,0 +1,23 @@
+{
+  "lambda_invoke": {
+    "default": {
+      "arn": "arn:aws:lambda:us-west-2:122065081394:function:postToSlack",
+      "options": {
+        "profile": "rodog",
+        "function": "postToSlack"
+      }
+    }
+  },
+  "lambda_package": {
+    "default": {}
+  },
+  "lambda_deploy": {
+    "default": {
+      "arn": "arn:aws:lambda:us-west-2:122065081394:function:postToSlack",
+      "options": {
+        "profile": "rodog",
+        "function": "postToSlack"
+      }
+    }
+  }
+}
