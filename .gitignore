@@ -28,3 +28,7 @@ node_modules
 
 # dotenv
 .env
+
+# grunt-aws-lambda lambda_deploy options
+lambda-deploy.json
+dist

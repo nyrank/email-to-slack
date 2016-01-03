@@ -28,9 +28,12 @@ This file is ignored by git and is used to hydrate your Lambda function instance
 
 - `grunt watch`
 
+## Running locally
+
+NOTE: Must have correct profile specified in the shell, as `lambda_invoke` does not respect the AWS profile configured in aws.json. This is due to a faulty assumption in the `grunt-aws-lambda` library that assumes that deploying is the only task that requires AWS context.
+
+`grunt lambda_invoke`
+
 ## Deploying
 
-Hacky, manual approach for zipping code, uploading to S3, and refreshing Lambda function.
-
-- `EMAIL_TO_SLACK_S3_BUCKET_NAME="email-to-slack" ; EMAIL_TO_SLACK_TIMESTAMP=$(date +"%Y-%m-%d-%H-%M-%S") ; EMAIL_TO_SLACK_ZIP="email-to-slack_$EMAIL_TO_SLACK_TIMESTAMP.zip" ; zip -r "$EMAIL_TO_SLACK_ZIP" . ; aws s3 cp "$EMAIL_TO_SLACK_ZIP" "s3://$EMAIL_TO_SLACK_S3_BUCKET_NAME" ; rm "$EMAIL_TO_SLACK_ZIP"`
-- Navigate to Lambda function in AWS web console, choose 'Upload a .ZIP from Amazon S3', and select the latest zip we just uploaded.
+`grunt deploy`

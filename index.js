@@ -17,7 +17,7 @@ var slackRequestOptions;
 var postSlackMessage = function(context, message) {
   var req = https.request(slackRequestOptions, function(res) {
     if (res.statusCode === 200) {
-      context.done();
+      context.succeed('posted to Slack');
     } else {
       context.fail('slack status code: ' + res.statusCode);
     }
@@ -74,9 +74,8 @@ exports.handler = function(event, context) {
             console.log(err, err.stack);
             context.fail();
           } else {
-            console.log('Raw email:\n' + data.Body);
             var rawEmailUrl = 'http://' + bucketName + '.s3.amazonaws.com/' + sesNotification.mail.messageId;
-            var message = 'Raw email: ' + rawEmailUrl;
+            var message = 'The newer rawest of email: ' + rawEmailUrl;
 
             postSlackMessage(context, message);
           }
