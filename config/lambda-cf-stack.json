@@ -36,7 +36,9 @@
         "Timeout": 60,
         "Handler": "index.handler",
         "Runtime": "nodejs",
-        "MemorySize": { "Ref": "MemorySize" }
+        "MemorySize": {
+          "Ref": "MemorySize"
+        }
       }
     },
     "LambdaExecutionRole": {
@@ -116,20 +118,21 @@
       }
     },
     "LambdaPermission": {
-      "Type" : "AWS::Lambda::Permission",
-      "Properties" : {
-        "Action" : "lambda:InvokeFunction",
-        "FunctionName" :  { "Fn::GetAtt": [
-                      "LambdaFunction",
-                      "Arn"
-                    ] },
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "LambdaFunction",
+            "Arn"
+          ]
+        },
         "Principal": "ses.amazonaws.com"
       }
     },
     "S3Bucket": {
       "Type": "AWS::S3::Bucket",
-      "Properties": {
-      }
+      "Properties": {}
     },
     "S3BucketPolicy": {
       "Type": "AWS::S3::BucketPolicy",
