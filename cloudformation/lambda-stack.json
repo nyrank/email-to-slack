@@ -1,0 +1,247 @@
+{
+  "Parameters": {
+    "MemorySize": {
+      "Type": "Number",
+      "Default": "128",
+      "Description": "Memory size for Lambda function"
+    }
+  },
+  "Resources": {
+    "LambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Metadata" : {
+        "Comment": "The lambda function itself."
+      },
+      "DependsOn": [
+        "LambdaExecutionRole",
+        "LambdaExecutionPolicy"
+      ],
+      "Properties": {
+        "Code": {
+          "ZipFile": {
+            "Fn::Join": [
+              "",
+              [
+                "exports.handler = function(event, context) {",
+                "   console.log('This function is a no-op and will be overwritten on deploy.');",
+                "   context.done();",
+                "};"
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "LambdaExecutionRole",
+            "Arn"
+          ]
+        },
+        "Timeout": 60,
+        "Handler": "index.handler",
+        "Runtime": "nodejs",
+        "MemorySize": {
+          "Ref": "MemorySize"
+        }
+      }
+    },
+    "LambdaExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Metadata" : {
+        "Comment": "The role under which the lambda function executes."
+      },
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/"
+      }
+    },
+    "LambdaExecutionPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Metadata" : {
+        "Comment": "The IAM policy for the lambda role: allows the function to interact with things in AWS."
+      },
+      "Properties": {
+        "PolicyName": "LambdaRolePolicy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:*"
+              ],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Ref": "S3Bucket"
+                    }
+                  ]
+                ]
+              }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:*"
+              ],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Ref": "S3Bucket"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "LambdaPermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Metadata" : {
+        "Comment": "Grants permission to other principals to execute the lambda function."
+      },
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "LambdaFunction",
+            "Arn"
+          ]
+        },
+        "Principal": "ses.amazonaws.com"
+      }
+    },
+    "S3Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "Metadata" : {
+        "Comment": "An S3 bucket for use by the lambda function."
+      },
+      "Properties": {}
+    },
+    "S3BucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Metadata" : {
+        "Comment": "Bucket policy that applies to the created bucket."
+      },
+      "Properties": {
+        "Bucket": {
+          "Ref": "S3Bucket"
+        },
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "asdfasdfaiskkdfid",
+              "Action": [
+                "s3:GetObject"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Ref": "S3Bucket"
+                    },
+                    "/*"
+                  ]
+                ]
+              },
+              "Principal": "*"
+            },
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ses.amazonaws.com"
+              },
+              "Action": [
+                "s3:PutObjectAcl",
+                "s3:PutObject"
+              ],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Ref": "S3Bucket"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "LambdaFunction": {
+      "Value": {
+        "Ref": "LambdaFunction"
+      }
+    },
+    "LambdaFunctionARN": {
+      "Description": "ARN of the created Lambda function",
+      "Value": {
+        "Fn::GetAtt": [
+          "LambdaFunction",
+          "Arn"
+        ]
+      }
+    },
+    "LambdaExecutionPolicy": {
+      "Value": {
+        "Ref": "LambdaExecutionPolicy"
+      }
+    },
+    "LambdaExecutionRole": {
+      "Value": {
+        "Ref": "LambdaExecutionRole"
+      }
+    },
+    "S3Bucket": {
+      "Value": {
+        "Ref": "S3Bucket"
+      }
+    },
+    "S3BucketPolicy": {
+      "Value": {
+        "Ref": "S3BucketPolicy"
+      }
+    }
+  }
+}
