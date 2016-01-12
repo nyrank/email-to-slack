@@ -1,9 +1,10 @@
 var dotenv = require('dotenv');
 dotenv.load();
-var url = require('url');
+var url   = require('url');
 var https = require('https');
-var AWS = require('aws-sdk');
-var s3 = new AWS.S3();
+var fs    = require('fs');
+var AWS   = require('aws-sdk');
+var s3    = new AWS.S3();
 
 var slackWebhookProtocol = 'https:';
 var slackWebhookPath;
@@ -39,7 +40,7 @@ var postSlackMessage = function(context, message) {
   req.end();
 };
 
-var bucketName = process.env.EMAIL_TO_SLACK_S3_BUCKET_NAME;
+var bucketName = JSON.parse(fs.readFileSync('cf-stack-outputs.json', 'utf8'))['StackOutputs']['S3Bucket'];
 
 exports.handler = function(event, context) {
   console.log('context: ', context);

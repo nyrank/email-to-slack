@@ -32,3 +32,4 @@ node_modules
 # grunt-aws-lambda lambda_deploy options
 lambda-deploy.json
 dist
+cf-stack-outputs.json

@@ -16,13 +16,14 @@ module.exports = function(grunt) {
     },
     lambda_invoke: aws.lambda_invoke,
     lambda_package: aws.lambda_package,
-    lambda_deploy: aws.lambda_deploy
+    lambda_deploy: aws.lambda_deploy,
+    create_stack: aws.create_stack
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-aws-lambda');
-
+  grunt.loadTasks('tasks');
   grunt.registerTask('default', ['jshint']);
   grunt.registerTask('deploy', ['lambda_package', 'lambda_deploy']);
 

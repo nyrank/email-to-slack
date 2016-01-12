@@ -1,10 +1,7 @@
 {
   "lambda_invoke": {
     "default": {
-      "arn": "arn:aws:lambda:us-west-2:122065081394:function:postToSlack",
       "options": {
-        "profile": "rodog",
-        "function": "postToSlack"
       }
     }
   },
@@ -13,11 +10,14 @@
   },
   "lambda_deploy": {
     "default": {
-      "arn": "arn:aws:lambda:us-west-2:122065081394:function:postToSlack",
+      "arn": "arn:aws:lambda:us-west-2:550196518397:function:ses-incoming-emails-LambdaFunction-13E33Q31ETJX",
       "options": {
-        "profile": "rodog",
-        "function": "postToSlack"
+        "profile": "dliggat"
       }
     }
+  },
+  "create_stack": {
+    "stack": "ses-incoming-emails",
+    "outputs": "cf-stack-outputs.json"
   }
 }
