@@ -1,6 +1,5 @@
-var AWS   = require('aws-sdk');
-var util  = require('util');
-var fs    = require('fs');
+var AWS      = require('aws-sdk');
+var util     = require('util');
 var jsonfile = require('jsonfile');
 
 module.exports = function(grunt) {
@@ -29,6 +28,7 @@ module.exports = function(grunt) {
       stack = { 'StackOutputs': stack };
       grunt.log.write(util.inspect(stack, {showHidden: false, depth: null})).ok();
       jsonfile.writeFileSync(grunt.config('create_stack').outputs, stack, {spaces: 2});
+      done();
     });
   });
 

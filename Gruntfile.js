@@ -1,6 +1,4 @@
 module.exports = function(grunt) {
-  var aws = grunt.file.readJSON('aws.json');
-
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jshint: {
@@ -14,9 +12,23 @@ module.exports = function(grunt) {
       files: ['.jshintrc', '<%= jshint.files %>'],
       tasks: ['jshint']
     },
-    lambda_invoke: aws.lambda_invoke,
-    lambda_package: aws.lambda_package,
-    lambda_deploy: aws.lambda_deploy,
+    lambda_invoke: {
+      default: {
+      }
+    },
+    lambda_package: {
+      default: {
+      }
+    },
+    lambda_deploy: {
+        default: {
+            arn: 'arn:aws:lambda:us-west-2:550196518397:function:ses-incoming-emails-LambdaFunction-GAHJ9I62G4XJ',
+            options: {
+                profile: 'dliggat'
+            }
+        }
+    },
+
     create_stack: {
       stack:   'ses-incoming-emails',
       outputs: 'state/lambda-stack-outputs.json'
