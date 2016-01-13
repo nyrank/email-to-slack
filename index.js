@@ -69,7 +69,7 @@ exports.handler = function(event, context) {
       s3.getObject({
           Bucket: bucketName,
           Key: sesNotification.mail.messageId
-        }, function(err, data) {
+        }, function(err/*, data*/) {
           if (err) {
             console.log(err, err.stack);
             context.fail();

@@ -1,5 +1,23 @@
+var dotenv = require('dotenv');
+dotenv.load();
+
 module.exports = function(grunt) {
-  var aws = grunt.file.readJSON('aws.json');
+  var aws = {
+    'lambda_invoke': {
+      'default': {}
+    },
+    'lambda_package': {
+      'default': {}
+    },
+    'lambda_deploy': {
+      'default': {
+        'arn': process.env.EMAIL_TO_SLACK_LAMBDA_ARN,
+        'options': {
+          'profile': process.env.EMAIL_TO_SLACK_AWS_PROFILE
+        }
+      }
+    }
+  };
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
