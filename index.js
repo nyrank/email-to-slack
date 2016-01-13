@@ -38,7 +38,6 @@ exports.handler = function(event, context) {
   console.log('context: ', context);
   console.log('event: ', event);
   console.log('Process email');
-
   var sesNotification = event.Records[0].ses;
   console.log('SES Notification:\n', JSON.stringify(sesNotification, null, 2));
 
@@ -55,7 +54,7 @@ exports.handler = function(event, context) {
       context.fail();
     } else {
       var rawEmailUrl = 'https://' + bucketName + '.s3.amazonaws.com/' + sesNotification.mail.messageId;
-      var message = 'The newer rawest of email: ' + rawEmailUrl;
+      var message = 'The newer raw email: ' + rawEmailUrl;
       postSlackMessage(context, message);
     }
   });
