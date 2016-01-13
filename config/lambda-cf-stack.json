@@ -9,6 +9,9 @@
   "Resources": {
     "LambdaFunction": {
       "Type": "AWS::Lambda::Function",
+      "Metadata" : {
+        "Comment": "The lambda function itself."
+      },
       "DependsOn": [
         "LambdaExecutionRole",
         "LambdaExecutionPolicy"
@@ -43,6 +46,9 @@
     },
     "LambdaExecutionRole": {
       "Type": "AWS::IAM::Role",
+      "Metadata" : {
+        "Comment": "The role under which the lambda function executes."
+      },
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Version": "2012-10-17",
@@ -68,6 +74,9 @@
         "LambdaExecutionRole"
       ],
       "Type": "AWS::IAM::Policy",
+      "Metadata" : {
+        "Comment": "The IAM policy for the lambda role: allows the function to interact with things in AWS."
+      },
       "Properties": {
         "PolicyName": "LambdaRolePolicy",
         "Roles": [
@@ -119,6 +128,9 @@
     },
     "LambdaPermission": {
       "Type": "AWS::Lambda::Permission",
+      "Metadata" : {
+        "Comment": "Grants permission to other principals to execute the lambda function."
+      },
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -132,10 +144,16 @@
     },
     "S3Bucket": {
       "Type": "AWS::S3::Bucket",
+      "Metadata" : {
+        "Comment": "An S3 bucket for use by the lambda function."
+      },
       "Properties": {}
     },
     "S3BucketPolicy": {
       "Type": "AWS::S3::BucketPolicy",
+      "Metadata" : {
+        "Comment": "Bucket policy that applies to the created bucket."
+      },
       "Properties": {
         "Bucket": {
           "Ref": "S3Bucket"
@@ -144,7 +162,7 @@
           "Version": "2012-10-17",
           "Statement": [
             {
-              "Sid": "asdfasdfaiskkdfd",
+              "Sid": "asdfasdfaiskkdfid",
               "Action": [
                 "s3:GetObject"
               ],
