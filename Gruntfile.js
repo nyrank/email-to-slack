@@ -17,7 +17,10 @@ module.exports = function(grunt) {
     lambda_invoke: aws.lambda_invoke,
     lambda_package: aws.lambda_package,
     lambda_deploy: aws.lambda_deploy,
-    create_stack: aws.create_stack
+    create_stack: {
+      stack:   'ses-incoming-emails',
+      outputs: 'state/lambda-stack-outputs.json'
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');

@@ -18,7 +18,8 @@
   "homepage": "https://github.com/chrislopresto/email-to-slack#readme",
   "dependencies": {
     "aws-sdk": "^2.2.26",
-    "dotenv": "^1.2.0"
+    "dotenv": "^1.2.0",
+    "jsonfile": "^2.2.3"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

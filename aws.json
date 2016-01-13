@@ -15,9 +15,5 @@
         "profile": "dliggat"
       }
     }
-  },
-  "create_stack": {
-    "stack": "ses-incoming-emails",
-    "outputs": "cf-stack-outputs.json"
   }
 }
