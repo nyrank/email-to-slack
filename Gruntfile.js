@@ -22,16 +22,11 @@ module.exports = function(grunt) {
     },
     lambda_deploy: {
         default: {
-            arn: 'arn:aws:lambda:us-west-2:550196518397:function:ses-incoming-emails-LambdaFunction-GAHJ9I62G4XJ',
+            arn: 'arn:aws:lambda:us-west-2:550196518397:function:ses-incoming-emails-LambdaFunction-DX7J282OSHAO',
             options: {
                 profile: 'dliggat'
             }
         }
-    },
-
-    create_stack: {
-      stack:   'ses-incoming-emails',
-      outputs: 'state/lambda-stack-outputs.json'
     }
   });
 

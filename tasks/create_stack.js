@@ -1,12 +1,13 @@
-var AWS   = require('aws-sdk');
-var util  = require('util');
-var fs    = require('fs');
+var AWS    = require('aws-sdk');
+var util   = require('util');
+var fs     = require('fs');
+var config = require('config');
 
 
 module.exports = function(grunt) {
   grunt.registerTask('create_stack', 'Create the CloudFormation stack', function() {
     var params = {
-      StackName: grunt.config('create_stack').stack,
+      StackName: config.get('stack.name'),
       Capabilities: [
         'CAPABILITY_IAM'
       ],

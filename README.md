@@ -44,6 +44,10 @@ In `config/default.json`:
 {
   "slack": {
     "webhookUrl": "https://hooks.slack.com/services/SECRET_URL"
+  },
+  "stack": {
+    "name": "your-stack-name",
+    "outputs": "state/lambda-stack-outputs.json"
   }
 }
 ```
