@@ -47,7 +47,8 @@ In `config/default.json`:
   },
   "stack": {
     "name": "your-stack-name",
-    "outputs": "state/lambda-stack-outputs.json"
+    "templateFile": "cloudformation/lambda-stack.json",
+    "outputsFile": "state/lambda-stack-outputs.json"
   }
 }
 ```

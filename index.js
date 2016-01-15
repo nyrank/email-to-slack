@@ -32,7 +32,7 @@ var postSlackMessage = function(context, message) {
   req.end();
 };
 
-var bucketName = jsonfile.readFileSync(config.get('stack.outputs'))['S3Bucket'];
+var bucketName = jsonfile.readFileSync(config.get('stack.outputsFile'))['S3Bucket'];
 
 exports.handler = function(event, context) {
   console.log('context: ', context);

@@ -18,11 +18,15 @@ module.exports = function(grunt) {
     },
     lambda_package: {
       default: {
+            arn: 'arn:aws:lambda:us-west-2:550196518397:function:ses-incoming-emails-LambdaFunction-1DNQ88JNL48Q5',
+            options: {
+                profile: 'dliggat'
+            }
       }
     },
     lambda_deploy: {
         default: {
-            arn: 'arn:aws:lambda:us-west-2:550196518397:function:ses-incoming-emails-LambdaFunction-DX7J282OSHAO',
+            arn: 'arn:aws:lambda:us-west-2:550196518397:function:ses-incoming-emails-LambdaFunction-1DNQ88JNL48Q5',
             options: {
                 profile: 'dliggat'
             }

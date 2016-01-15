@@ -11,7 +11,7 @@ module.exports = function(grunt) {
       Capabilities: [
         'CAPABILITY_IAM'
       ],
-      TemplateBody: fs.readFileSync('cloudformation/lambda-stack.json', 'utf8')
+      TemplateBody: fs.readFileSync(config.get('stack.templateFile'), 'utf8')
     };
 
     var update = grunt.option('update') || false;

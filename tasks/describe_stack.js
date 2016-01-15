@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         stack[status[i].OutputKey] = status[i].OutputValue;
       }
       grunt.log.write(util.inspect(stack, {showHidden: false, depth: null})).ok();
-      jsonfile.writeFileSync(config.get('stack.outputs'), stack, {spaces: 2});
+      jsonfile.writeFileSync(config.get('stack.outputsFile'), stack, {spaces: 2});
       done();
     });
   });
