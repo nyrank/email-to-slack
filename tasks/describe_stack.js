@@ -1,36 +1,23 @@
-var AWS      = require('aws-sdk');
 var util     = require('util');
 var jsonfile = require('jsonfile');
 var config   = require('config');
-
+var poller   = require('../lib/cloudformation-poller.js');
 
 module.exports = function(grunt) {
   grunt.registerTask('describe_stack', 'Describe the CloudFormation stack', function() {
     var done = this.async();
 
-    var cloudformation = new AWS.CloudFormation({cloudformation: '2010-05-15'});
-    var params = {
-      StackName: config.get('stack.name')
-    };
-    cloudformation.describeStacks(params, function(err, data) {
-      if (err) {
-        grunt.fail.fatal(err, err.stack);
-      }
-      if (data.Stacks[0].StackStatus !== 'CREATE_COMPLETE' &&
-          data.Stacks[0].StackStatus !== 'UPDATE_COMPLETE') {
-        grunt.log.warn(util.inspect(data));
-        grunt.fail.fatal('Stack is not finished creating.');
-      }
+    var stackID = config.get('stack.name');
+    var cfPoller = poller(stackID);
 
-      var stack = {};
-      var status = data.Stacks[0].Outputs;
-      for (var i in status) {
-        stack[status[i].OutputKey] = status[i].OutputValue;
-      }
-      grunt.log.write(util.inspect(stack, {showHidden: false, depth: null})).ok();
-      jsonfile.writeFileSync(config.get('stack.outputsFile'), stack, {spaces: 2});
+    cfPoller.then(function(outputs) {
+      grunt.log.write(util.inspect(outputs, {showHidden: false, depth: null})).ok();
+      jsonfile.writeFileSync(config.get('stack.outputsFile'), outputs, {spaces: 2});
+    }, function(error) {
+      grunt.fail.fatal(error, error.stack);
+    }).finally(function() {
       done();
     });
-  });
 
+  });
 };
