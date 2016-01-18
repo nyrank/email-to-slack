@@ -18,19 +18,11 @@ module.exports = function(grunt) {
     },
     lambda_package: {
       default: {
-            arn: 'arn:aws:lambda:us-west-2:550196518397:function:ses-incoming-emails-LambdaFunction-1DNQ88JNL48Q5',
-            options: {
-                profile: 'dliggat'
-            }
       }
     },
     lambda_deploy: {
-        default: {
-            arn: 'arn:aws:lambda:us-west-2:550196518397:function:ses-incoming-emails-LambdaFunction-1DNQ88JNL48Q5',
-            options: {
-                profile: 'dliggat'
-            }
-        }
+      default: {
+      }
     }
   });
 
@@ -40,6 +32,5 @@ module.exports = function(grunt) {
   grunt.loadTasks('tasks');
   grunt.registerTask('default', ['jshint']);
   grunt.registerTask('provision', ['create_stack', 'describe_stack']);
-  grunt.registerTask('deploy', ['lambda_package', 'lambda_deploy']);
-
+  grunt.registerTask('deploy', ['set_state', 'lambda_package', 'lambda_deploy']);
 };
