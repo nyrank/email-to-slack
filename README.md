@@ -40,4 +40,29 @@ NOTE: Must have correct profile specified in the shell, as `lambda_invoke` does 
 
 ## Deploying
 
+### Configure
+
+In `config/default.json`:
+
+```json
+{
+  "slack": {
+    "webhookUrl": "https://hooks.slack.com/services/SECRET_URL"
+  },
+  "stack": {
+    "name": "your-stack-name",
+    "templateFile": "cloudformation/lambda-stack.json",
+    "outputsFile": "state/lambda-stack-outputs.json"
+  }
+}
+```
+
+### Create the cloudformation stack
+`grunt create_stack`
+
+### Obtain the stack outputs
+`grunt describe_stack`
+
+### Deploy the code to lambda
+Edit the `lambda_deploy.default.arn` in `Gruntfile.js` (TODO: pull this from `state/lambda-stack-outputs.json`).
 `grunt deploy`

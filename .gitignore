@@ -32,3 +32,5 @@ node_modules
 # grunt-aws-lambda lambda_deploy options
 lambda-deploy.json
 dist
+state/*.json
+config/*

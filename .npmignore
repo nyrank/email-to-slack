@@ -1,4 +1,6 @@
+tasks
 event.json
 Gruntfile.js
+cloudformation
 dist
 *.iml
