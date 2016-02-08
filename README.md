@@ -9,22 +9,9 @@ An AWS Lambda function for processing SES emails and posting the results to Slac
 - `npm install -g grunt-cli`
 - `npm install`
 
-### Configuring Local Environment
+## Use linked `grunt-aws-cloudformation`
 
-Create a .env file at the repository root with the following contents:
-
-```sh
-EMAIL_TO_SLACK_WEBHOOK_PATH_ENCRYPTED="<YOUR ENCRYPTED SLACK WEBHOOK URL>"
-EMAIL_TO_SLACK_S3_BUCKET_NAME="<YOUR S3 BUCKET NAME>"
-EMAIL_TO_SLACK_AWS_PROFILE="<YOUR AWS PROFILE>"
-EMAIL_TO_SLACK_LAMBDA_ARN="<YOUR LAMBDA FUNCTION ARN>"
-```
-
-This file is ignored by git and is used to hydrate your Lambda function instance configuration settings. Since this file will be packaged in a .zip file stored on S3, it is important to encrypt sensitive content using a KMS key.
-
-## Encrypting Slack Incoming Webhook URL with KMS
-
-... to do ...
+    npm link grunt-aws-cloudformation
 
 ## Developing
 
@@ -47,22 +34,21 @@ In `config/default.json`:
 ```json
 {
   "slack": {
-    "webhookUrl": "https://hooks.slack.com/services/SECRET_URL"
+    "webhookUrl": "https://hooks.slack.com/services/SECRET_URL",
+    "channel": "#notifications",
+    "username": "mailbot",
+    "icon_emoji": ":mailbox:"
   },
   "stack": {
-    "name": "your-stack-name",
-    "templateFile": "cloudformation/lambda-stack.json",
+    "stackName": "your-stack-name",
+    "stackBodyFile": "cloudformation/lambda-stack.json",
     "outputsFile": "state/lambda-stack-outputs.json"
   }
 }
 ```
 
 ### Create the cloudformation stack
-`grunt create_stack`
-
-### Obtain the stack outputs
-`grunt describe_stack`
+`grunt provision_stack`
 
 ### Deploy the code to lambda
-Edit the `lambda_deploy.default.arn` in `Gruntfile.js` (TODO: pull this from `state/lambda-stack-outputs.json`).
-`grunt deploy`
+`grunt deploy_function`

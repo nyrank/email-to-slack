@@ -33,4 +33,4 @@ node_modules
 lambda-deploy.json
 dist
 state/*.json
-config/*
+config/*.json
